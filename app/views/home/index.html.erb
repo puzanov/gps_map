@@ -1,0 +1,26 @@
+<div id="map" style="width: 100%; height: 100%;"></div>
+<script type="text/javascript">
+  var map;
+  if (GBrowserIsCompatible()) {
+
+    var driver1Icon = new GIcon(G_DEFAULT_ICON);
+    driver1Icon.image = "http://about.namba.kg/ima/avatar/vlad.jpg";
+    driver1Icon.iconSize = new GSize(66, 66);
+    marker1Options = { icon:driver1Icon };
+    
+    var driver2Icon = new GIcon(G_DEFAULT_ICON);
+    driver2Icon.image = "http://about.namba.kg/ima/avatar/rus.jpg";
+    driver2Icon.iconSize = new GSize(66, 66);
+    marker2Options = { icon:driver2Icon };
+
+    map = new GMap2(document.getElementById("map"));
+    map.setCenter(new GLatLng(42.878408,74.618534), 12);
+    map.addOverlay(new GMarker(new GLatLng(42.878948,74.618534),marker1Options));
+    map.addOverlay(new GMarker(new GLatLng(42.868948,74.658534),marker2Options));
+
+
+
+  if (window.attachEvent) { 
+    window.attachEvent("onresize", function() {this.map.onResize()} ); } else { window.addEventListener("resize", function() {this.map.onResize()} , false); }
+  }
+</script>
