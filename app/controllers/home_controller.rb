@@ -1,7 +1,13 @@
 class HomeController < ApplicationController
   def index
-    #@map = GMap.new("map_div")
-    #@map.control_init(:large_map => true,:map_type => true)
-    #@map.center_zoom_init([42.878408,74.618534],4)
+    @users = User.all
+  end
+
+  def save_coords
+    user = User.find_by_email(params[:email])    
+    user.lat  = params[:latitude]
+    user.long = params[:longtitude]
+    user.save
+    render :nothing => true
   end
 end
