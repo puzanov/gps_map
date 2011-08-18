@@ -15,7 +15,15 @@
       map.addOverlay(new GMarker(new GLatLng(<%= user.lat %>, <%= user.long %>),marker<%= user.id %>Options));
     <% end %>
 
-  if (window.attachEvent) { 
-    window.attachEvent("onresize", function() {this.map.onResize()} ); } else { window.addEventListener("resize", function() {this.map.onResize()} , false); }
+    if (window.attachEvent) { 
+      window.attachEvent("onresize", function() {this.map.onResize()} ); } else { window.addEventListener("resize", function() {this.map.onResize()} , false); }
   }
+
+  $(document).ready(function() {
+    while (true) {
+      $.doTimeout( 1000, function(){
+        alert(1);
+      });
+    }
+  });  
 </script>

@@ -5,8 +5,8 @@ class HomeController < ApplicationController
 
   def save_coords
     user = User.find_by_email(params[:email])    
-    user.lat  = params[:latitude]
-    user.long = params[:longtitude]
+    user.lat  = params[:lat]
+    user.long = params[:long]
     user.save
     render :nothing => true
   end
