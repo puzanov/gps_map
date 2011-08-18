@@ -10,4 +10,9 @@ class HomeController < ApplicationController
     user.save
     render :nothing => true
   end
+
+  def get_coords
+    @users = User.all
+    render :json => @users
+  end
 end

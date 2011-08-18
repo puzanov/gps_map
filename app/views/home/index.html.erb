@@ -1,6 +1,8 @@
 <div id="map" style="width: 100%; height: 100%;"></div>
 <script type="text/javascript">
   var map;
+  var marker = new Array();
+  var markerOptions = new Array();
   if (GBrowserIsCompatible()) {
     map = new GMap2(document.getElementById("map"));
     map.addControl(new GLargeMapControl());
@@ -11,12 +13,28 @@
       driver<%= user.id %>Icon.iconSize = new GSize(73, 106);
       driver<%= user.id %>Icon.shadow = "/images/shadow.png";
       driver<%= user.id %>Icon.shadowSize = new GSize(127, 106);
-      marker<%= user.id %>Options = { icon:driver<%= user.id %>Icon };
-      map.addOverlay(new GMarker(new GLatLng(<%= user.lat %>, <%= user.long %>),marker<%= user.id %>Options));
+      markerOptions[<%= user.id %>] = { icon:driver<%= user.id %>Icon };
+      marker[<%= user.id %>] = new GMarker(new GLatLng(<%= user.lat %>, <%= user.long %>), markerOptions[<%= user.id %>]);
+      map.addOverlay(marker[<%= user.id %>]);
     <% end %>
 
     if (window.attachEvent) { 
       window.attachEvent("onresize", function() {this.map.onResize()} ); } else { window.addEventListener("resize", function() {this.map.onResize()} , false); }
   }
-
+  
+  $(document).ready(function(){
+    $.PeriodicalUpdater({
+      url : '/get_coords'
+    },
+    function(data){
+      users = $.parseJSON(data);
+      $.each(users, function(i, user) {
+        user = user.user;
+        map.removeOverlay(marker[user.id]);
+        marker[user.id] = new GMarker(new GLatLng(user.lat, user.long), markerOptions[user.id]);
+        map.addOverlay(marker[user.id]);
+      });
+    });
+  })
+  
 </script>
