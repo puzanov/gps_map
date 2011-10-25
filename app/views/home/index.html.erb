@@ -6,6 +6,7 @@
   if (GBrowserIsCompatible()) {
     map = new GMap2(document.getElementById("map"));
     map.addControl(new GLargeMapControl());
+    map.addControl(new GMapTypeControl());
     map.setCenter(new GLatLng(42.878408,74.618534), 13);
     <% @users.each do |user| %>
       var driver<%= user.id %>Icon = new GIcon(G_DEFAULT_ICON);
